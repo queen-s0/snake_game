@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*- 
 import curses
 from random import randint
+from render import Render
+import time
 
 class SnakeGame:
     def __init__(self, board_width = 20, board_height = 20, gui = False):
@@ -32,25 +34,12 @@ class SnakeGame:
         self.food = food
 
     def render_init(self):
-        curses.initscr()
-        win = curses.newwin(self.board["width"] + 2, self.board["height"] + 2, 0, 0)
-        curses.curs_set(0)
-        win.nodelay(1)
-        win.timeout(200)
-        self.win = win
+        self.render_obj = Render()
         self.render()
 
     def render(self):
-        self.win.clear()
-        self.win.border(0)
-        self.win.addstr(0, 2, 'Score : ' + str(self.score) + ' ')
-        self.win.addch(self.food[0], self.food[1], '🍎')
-        for i, point in enumerate(self.snake):
-            if i == 0:
-                self.win.addch(point[0], point[1], '🔸')
-            else:
-                self.win.addch(point[0], point[1], '🔹')
-        self.win.getch()
+        self.render_obj.update(self.snake, self.food, self.score)
+        time.sleep(0.2)
 
     def step(self, key):
         # 0 - UP
@@ -98,7 +87,7 @@ class SnakeGame:
         return self.done, self.score, self.snake, self.food
 
     def render_destroy(self):
-        curses.endwin()
+        self.render_obj.quit()
 
     def end_game(self):
         if self.gui: self.render_destroy()

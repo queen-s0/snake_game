@@ -194,4 +194,4 @@ class Snake:
 
 
 if __name__ == "__main__":
-    Snake(initial_games=30000).run()
+    Snake().run()
