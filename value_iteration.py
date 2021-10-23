@@ -27,7 +27,6 @@ class Snake:
         self.rewards = collections.defaultdict(float)
         self.transits = collections.defaultdict(collections.Counter)
         self.values = collections.defaultdict(float)
-        # self.state_n = 8 * 4
         self.gamma = 0.95
         self.nu = 0.0005
 
@@ -179,12 +178,6 @@ class Snake:
     def run(self):
         self._model_transits_rewards()
         self._value_iteration()
-        # print(self.transits)
-        # print()
-        # print(self.rewards)
-        # print()
-        # print(self.values)
-        # assert False
 
         for _ in range(self.test_games):
             game = SnakeGame(gui = True)
