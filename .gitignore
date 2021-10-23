@@ -140,4 +140,5 @@ dmypy.json
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/reception-dev.iml
+.idea/snake_game.iml
 .vscode/settings.json
