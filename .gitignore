@@ -131,6 +131,8 @@ nexus/
 .dmypy.json
 dmypy.json
 
+log/
+
 # Pyre type checker
 .pyre/
 .idea/.gitignore
