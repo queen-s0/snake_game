@@ -54,6 +54,7 @@ class SnakeNN:
                  goal_steps=2000,
                  lr=1e-2,
                  filename='',
+                 seed=52,
                  visualize=True,
                  network_type='tf'):
 
@@ -62,6 +63,7 @@ class SnakeNN:
         self.test_games = test_games
         self.goal_steps = goal_steps
         self.lr = lr
+        self.seed = seed
         self.network_type = network_type
         self.visualize = visualize
         self.filename = filename
@@ -169,7 +171,7 @@ class SnakeNN:
 
         if self.network_type == 'tf':
 
-            model.fit(X,y, n_epoch = 1, shuffle = True, run_id = self.filename)
+            model.fit(X,y, n_epoch = 2, shuffle = True, run_id = self.filename)
             model.save(self.filename)
 
             return model

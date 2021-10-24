@@ -11,39 +11,45 @@ def get_args_parser():
                         help='name of the algorithm')
     parser.add_argument('--field-shape', default=(12, 12), nargs='+', type=int,
                         help='Size of the game field')
-    parser.add_argument('--num-of-games', default=15000, type=int,
+    parser.add_argument('--train-games', default=15000, type=int,
                         help='Number of initial games to create train dataset')
     parser.add_argument('--visualize', default=True, type=bool,
                         help='Visualize game')
     parser.add_argument('--seed', default=1, type=int,
                         help='Random seed')
+    parser.add_argument('--test-games', default=5, type=int,
+                        help='Number of test games')
 
     return parser
 
 def main(args):
     algorithm_name = args.algo
     field_shape = args.field_shape
-    num_of_games = args.num_of_games
+    train_games = args.train_games
+    test_games = args.test_games
     visualize = args.visualize
     seed = args.seed
 
     if algorithm_name == 'value iteration':
         snake = ValueIterationSnake(field_shape=field_shape,
-                                    initial_games=num_of_games,
+                                    initial_games=train_games,
+                                    test_games=test_games,
                                     visualize=visualize,
                                     seed=seed)
         snake.run()
 
     elif algorithm_name == 'policy iteration':
         snake = PolicyIterationSnake(field_shape=field_shape,
-                                     initial_games=num_of_games,
+                                     initial_games=train_games,
+                                     test_games=test_games,
                                      visualize=visualize,
                                      seed=seed)
         snake.run()
 
     elif algorithm_name == 'mlp':
         snake = SnakeNN(field_shape=field_shape,
-                        initial_games=num_of_games,
+                        initial_games=train_games,
+                        test_games=test_games,
                         visualize=visualize,
                         seed=seed)
         snake.train()

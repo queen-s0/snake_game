@@ -13,7 +13,7 @@ class SnakeGame:
         self.gui = gui
         self.title = title
 
-        np.random.seed(seed)
+        # np.random.seed(seed)
 
     def start(self):
         self.snake_init()
@@ -85,7 +85,7 @@ class SnakeGame:
             self.snake[0][0] == self.board["width"] or
             self.snake[0][1] == -1 or
             self.snake[0][1] == self.board["height"] or
-            self.snake[0] in self.snake[1:]):
+            self.snake[0] in self.snake[1:-1]):
             self.done = True
 
     def generate_observations(self):

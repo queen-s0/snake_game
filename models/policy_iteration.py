@@ -108,7 +108,7 @@ class PolicyIterationSnake:
 
     def is_direction_blocked(self, snake, direction):
         point = np.array(snake[0]) + np.array(direction)
-        return point.tolist() in snake[1:] \
+        return point.tolist() in snake[:-1] \
                or point[0] == -1 \
                or point[1] == -1 \
                or point[0] == self.width \
