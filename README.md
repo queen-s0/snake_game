@@ -17,7 +17,7 @@ In order to estimate the perfomance of each algorithm we have conducted an exper
     ```├── nn.py``` — MLP approach\
     ```├── policy_iteration.py``` — Policy Iteration algorithm\
     ```└── value_iteration.py``` — Value Iteration
-- ```src/``` — auxiliary instrumets
+- ```src/``` — auxiliary instrumets \
     ```├── render.py``` — Snake Game rendering\
     ```└── snake_game.py``` — logic of the Snake Game
 - ```run.py``` — start experiments
