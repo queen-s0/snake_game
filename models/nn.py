@@ -1,19 +1,20 @@
-from snake_game import SnakeGame
-from random import randint
-import numpy as np
-import tflearn
 import math
-from tflearn.layers.core import input_data, fully_connected
-from tflearn.layers.estimator import regression
+import tflearn
+import argparse
+import numpy as np
+from random import randint
 from statistics import mean
 from collections import Counter
+
+from tflearn.layers.estimator import regression
+from tflearn.layers.core import input_data, fully_connected
 
 import torch
 import torch.optim
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
-import argparse
+from src.snake_game import SnakeGame
 
 class CustomDataset(Dataset):
 
@@ -34,9 +35,9 @@ class MLP(nn.Module):
     def __init__(self):
         super(MLP, self).__init__()
 
-        self.fc1 = nn.Linear(5, 15)
+        self.fc1 = nn.Linear(5, 25)
         self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(15, 1)
+        self.fc2 = nn.Linear(25, 10)
 
     def forward(self, x):
         x = self.fc1(x)
@@ -46,11 +47,23 @@ class MLP(nn.Module):
         return x
 
 class SnakeNN:
-    def __init__(self, initial_games = 1000, test_games = 10, goal_steps = 2000, lr = 1e-2, filename = ''):
+    def __init__(self,
+                 field_shape,
+                 initial_games=10000,
+                 test_games=1,
+                 goal_steps=2000,
+                 lr=1e-2,
+                 filename='',
+                 visualize=True,
+                 network_type='tf'):
+
+        self.width, self.height = field_shape
         self.initial_games = initial_games
         self.test_games = test_games
         self.goal_steps = goal_steps
         self.lr = lr
+        self.network_type = network_type
+        self.visualize = visualize
         self.filename = filename
         self.vectors_and_keys = [
                 [[-1, 0], 0],
@@ -110,8 +123,6 @@ class SnakeNN:
     def add_action_to_observation(self, observation, action):
         return np.append([action], observation)
 
-
-
     def get_snake_direction_vector(self, snake):
         return np.array(snake[0]) - np.array(snake[1])
 
@@ -126,7 +137,11 @@ class SnakeNN:
 
     def is_direction_blocked(self, snake, direction):
         point = np.array(snake[0]) + np.array(direction)
-        return point.tolist() in snake[:-1] or point[0] == 0 or point[1] == 0 or point[0] == 21 or point[1] == 21
+        return point.tolist() in snake[1:] \
+               or point[0] == 0 \
+               or point[1] == 0 \
+               or point[0] == self.width \
+               or point[1] == self.height
 
     def turn_vector_to_the_left(self, vector):
         return np.array([-vector[1], vector[0]])
@@ -152,14 +167,14 @@ class SnakeNN:
         X = np.array([i[0] for i in training_data]).reshape(-1, 5, 1)
         y = np.array([i[1] for i in training_data]).reshape(-1, 1)
 
-        if network_type == 'tf':
+        if self.network_type == 'tf':
 
-            model.fit(X,y, n_epoch = 3, shuffle = True, run_id = self.filename)
+            model.fit(X,y, n_epoch = 1, shuffle = True, run_id = self.filename)
             model.save(self.filename)
 
             return model
 
-        elif network_type == 'torch':
+        elif self.network_type == 'torch':
 
             model_torch = MLP()
             lr = 1e-2
@@ -199,18 +214,18 @@ class SnakeNN:
         for _ in range(self.test_games):
             steps = 0
             game_memory = []
-            game = SnakeGame()
+            game = SnakeGame(board_width=self.width, board_height=self.height, gui=self.visualize)
             _, score, snake, food = game.start()
             prev_observation = self.generate_observation(snake, food)
             for _ in range(self.goal_steps):
                 predictions = []
                 for action in range(-1, 2):
-                    if network_type == 'torch':
+                    if self.network_type == 'torch':
                         input = torch.from_numpy(
                             self.add_action_to_observation(prev_observation, action).reshape(-1, 5)).type(torch.float32)
                         prediction = model(input).detach().numpy()
 
-                    elif network_type == 'tf':
+                    elif self.network_type == 'tf':
                         prediction = model.predict(self.add_action_to_observation(prev_observation, action).reshape(-1, 5, 1))
 
                     predictions.append(prediction)
@@ -238,7 +253,10 @@ class SnakeNN:
         print(Counter(scores_arr))
 
     def visualise_game(self, model):
-        game = SnakeGame(gui=True)
+        game = SnakeGame(board_width=self.width,
+                         board_height=self.height,
+                         gui=self.visualize,
+                         title='MLP')
         _, _, snake, food = game.start()
         prev_observation = self.generate_observation(snake, food)
         for _ in range(self.goal_steps):
@@ -269,11 +287,11 @@ class SnakeNN:
         self.test_model(nn_model)
 
     def visualise(self):
-        if network_type == 'tf':
+        if self.network_type == 'tf':
             nn_model = self.model()
             nn_model.load(self.filename)
 
-        elif network_type == 'torch':
+        elif self.network_type == 'torch':
             nn_model = torch.load('torch_model', map_location='cpu')
 
         self.visualise_game(nn_model)
@@ -287,7 +305,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="SnakeNN")
 
-    parser.add_argument('--visualize', type=bool, default=False,
+    parser.add_argument('--visualize', type=bool, default=True,
                         help='Visualize Snake Game')
 
     parser.add_argument('--network-type', type=str, choices=['torch', 'tf'],
@@ -296,11 +314,18 @@ if __name__ == "__main__":
     parser.add_argument('--train', type=bool, default=True,
                         help='Framework Network type')
 
+    parser.add_argument('--field-shape', type=tuple, default=(12, 12),
+                        help='Field shape')
+
     args = parser.parse_args()
     network_type = args.network_type
+    field_shape = args.field_shape
+    visualize = args.visualize
+
+    snake_nn = SnakeNN(field_shape=field_shape)
 
     if args.train:
-        SnakeNN().train()
+        snake_nn.train()
 
-    if args.visualize:
-        SnakeNN().visualise()
+    if visualize:
+        snake_nn.visualise()
