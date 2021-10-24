@@ -1,4 +1,4 @@
-name: snake_nn_test
+name: snake_game
 channels:
   - pytorch
   - defaults
