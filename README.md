@@ -16,7 +16,7 @@ In order to estimate the perfomance of each algorithm we have conducted an exper
 **Algorithm** |       **Value Iteration**             |  **Policy Iteration**   |   **MLP**
 :------------------------:|:-------------------------:|:-------------------------:|:--------------------------:|
 **Demo (Non-optimal)** | ![](gifs/value-iteration.gif)  |  ![](gifs/policy-iteration.gif) | ![](gifs/mlp.gif) 
-**Average number of step** |  **424** |  **198** | **123**
+**Average number of steps** |  **424** |  **198** | **123**
 **Average maximal length** | **22** | **23** | **12**
 
 ## Repository structure
