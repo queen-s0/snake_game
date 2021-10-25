@@ -11,6 +11,8 @@ In order to estimate the perfomance of each algorithm we have conducted an exper
 * **Average number of steps (ANS)**: How many steps does the Snake take on average before the collision;
 * **Average maximal Snake length (AML)**: Average maximal length of the snake during the game;
 
+Our video-presentation can be found [here](https://youtu.be/3HkdobjWHPA).
+
 ## Results
 
 **Algorithm** |       **Value Iteration**             |  **Policy Iteration**   |   **MLP**
@@ -29,6 +31,7 @@ In order to estimate the perfomance of each algorithm we have conducted an exper
     ```├── render.py``` — Snake Game rendering\
     ```└── snake_game.py``` — logic of the Snake Game
 - ```gifs/``` — contains gifs 
+- ```supplementary/``` — contains presentation in `.pdf` format
 - ```run.py``` — start experiments
 
 ## Installation
