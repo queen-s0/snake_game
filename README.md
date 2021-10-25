@@ -51,4 +51,10 @@ python run.py --algo 'mlp' --field-shape 15 15 --train-games 8000 --visualize Tr
 
 [comment]: <> (![MLP]&#40;gifs/mlp.gif&#41;)
 
-[<img src="gifs/mlp.gif" width="250"/>](gifs/mlp.gif)
+[comment]: <> ([<img src="gifs/mlp.gif" width="250"/>]&#40;gifs/mlp.gif&#41;)
+
+<p float="left">
+  <img src="gifs/mlp.gif" width="250" />
+  <img src="gifs/mlp.gif" width="250" /> 
+  <img src="gifs/mlp.gif" width="250" />
+</p>
