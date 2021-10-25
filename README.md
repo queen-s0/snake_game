@@ -53,8 +53,16 @@ python run.py --algo 'mlp' --field-shape 15 15 --train-games 8000 --visualize Tr
 
 [comment]: <> ([<img src="gifs/mlp.gif" width="250"/>]&#40;gifs/mlp.gif&#41;)
 
-<p float="middle">
-  <img src="gifs/value-iteration.gif" width="250" />
-  <img src="gifs/policy-iteration.gif" width="250" /> 
-  <img src="gifs/mlp.gif" width="250" />
-</p>
+[comment]: <> (<p float="middle">)
+
+[comment]: <> (  <img src="gifs/value-iteration.gif" width="250" />)
+
+[comment]: <> (  <img src="gifs/policy-iteration.gif" width="250" /> )
+
+[comment]: <> (  <img src="gifs/mlp.gif" width="250" />)
+
+[comment]: <> (</p>)
+
+**MLP**             |  **Value Iteration**
+:-------------------------:|:-------------------------:
+![](gifs/mlp.gif)  |  ![](gifs/value-iteration.gif)
