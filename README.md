@@ -63,6 +63,6 @@ python run.py --algo 'mlp' --field-shape 15 15 --train-games 8000 --visualize Tr
 
 [comment]: <> (</p>)
 
-**MLP**             |  **Value Iteration**
-:-------------------------:|:-------------------------:
-![](gifs/mlp.gif)  |  ![](gifs/value-iteration.gif)
+**Value Iteration**             |  **Policy Iteration**   |   **MLP**
+:-------------------------:|:-------------------------:|:--------------------------:|
+![](gifs/value-iteration.gif)  |  ![](gifs/policy-iteration.gif) | ![](gifs/mlp.gif)
