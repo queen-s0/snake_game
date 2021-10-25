@@ -1,4 +1,4 @@
-# Snake Game
+# Snake Game 🐍
 
 This final "Reinforcement Learning course" project focuses on the artificial intelligence of the **"Snake Game"**. Essence of the game is a piece of cake: snake eats the food that arises on the field and fill the map of its bodies as soon as possible. 
 
