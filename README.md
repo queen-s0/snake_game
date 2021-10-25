@@ -13,11 +13,11 @@ In order to estimate the perfomance of each algorithm we have conducted an exper
 
 ## Results
 
-**Algorithm** |       **Demo (Not optimal)**             |  **Average number of steps**   |   **Average maximal length**
+**Algorithm** |       **Value Iteration**             |  **Policy Iteration**   |   **MLP**
 :------------------------:|:-------------------------:|:-------------------------:|:--------------------------:|
-**Value Iteration** | ![](gifs/value-iteration.gif)  |  **424** | **22**
-**Policy Iteration** | ![](gifs/policy-iteration.gif)  |  **198** | **23**
-**MLP** | ![](gifs/mlp.gif)  | **123** | **12**
+**Demo (Non-optimal)** | ![](gifs/value-iteration.gif)  |  ![](gifs/policy-iteration.gif) | ![](gifs/mlp.gif) 
+**Average number of step** |  **424** |  **198** | **123**
+**Average maximal length** | **22** | **23** | **12**
 
 ## Repository structure
 
