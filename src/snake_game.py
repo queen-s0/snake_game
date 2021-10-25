@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*- 
 import curses
 import time
-import numpy as np
-# from random import randint
+from random import randint
 from src.render import Render
 
 class SnakeGame:
-    def __init__(self, board_width = 20, board_height = 20, gui = False, seed=None, title=None):
+    def __init__(self, board_width = 20, board_height = 20, gui = False, title=None):
         self.score = 0
         self.done = False
         self.board = {'width': board_width, 'height': board_height}
         self.gui = gui
         self.title = title
-
-        # np.random.seed(seed)
 
     def start(self):
         self.snake_init()
@@ -22,10 +19,10 @@ class SnakeGame:
         return self.generate_observations()
 
     def snake_init(self):
-        x = np.random.randint(5, self.board["width"] - 5)
-        y = np.random.randint(5, self.board["height"] - 5)
+        x = randint(5, self.board["width"] - 5)
+        y = randint(5, self.board["height"] - 5)
         self.snake = []
-        vertical = np.random.randint(0,1) == 0
+        vertical = randint(0,1) == 0
         for i in range(3):
             point = [x + i, y] if vertical else [x, y + i]
             self.snake.insert(0, point)
@@ -33,7 +30,7 @@ class SnakeGame:
     def generate_food(self):
         food = []
         while food == []:
-            food = [np.random.randint(0, self.board["width"] - 1), np.random.randint(0, self.board["height"] - 1)]
+            food = [randint(0, self.board["width"] - 1), randint(0, self.board["height"] - 1)]
             if food in self.snake: food = []
         self.food = food
 
@@ -103,4 +100,4 @@ if __name__ == "__main__":
     game = SnakeGame(*shape, gui = True)
     game.start()
     for _ in range(25):
-        game.step(np.random.randint(0,3))
+        game.step(randint(0,3))

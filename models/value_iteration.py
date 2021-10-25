@@ -16,7 +16,6 @@ class ValueIterationSnake:
                  lr=1e-2,
                  filename='snake_nn_2.tflearn',
                  visualize=True,
-                 seed=1
         ):
 
         self.width, self.height = field_shape
@@ -24,7 +23,6 @@ class ValueIterationSnake:
         self.test_games = test_games
         self.goal_steps = goal_steps
         self.lr = lr
-        self.seed = seed
         self.visualize = visualize
         self.filename = filename
         self.vectors_and_keys = [
@@ -42,7 +40,10 @@ class ValueIterationSnake:
 
     def _model_transits_rewards(self):
         for _ in tqdm(range(self.initial_games)):
-            game = SnakeGame(seed=self.seed)
+            game = SnakeGame(board_width=self.width,
+                             board_height=self.height,
+                             gui=False,
+                             title='Policy Iteration')
             _, prev_score, snake, food = game.start()
             prev_observation = self.generate_observation(snake, food)
             prev_food_distance = self.get_food_distance(snake, food)
@@ -197,7 +198,6 @@ class ValueIterationSnake:
             game = SnakeGame(board_width=self.width,
                              board_height=self.height,
                              gui=self.visualize,
-                             seed=self.seed,
                              title='Value Iteration')
             _, _, snake, food = game.start()
             prev_observation = self.generate_observation(snake, food)

@@ -12,18 +12,16 @@ class PolicyIterationSnake:
                  field_shape,
                  initial_games=30000,
                  test_games=1,
-                 goal_steps=500,
+                 goal_steps=2500,
                  lr=1e-2,
                  filename='snake_nn_2.tflearn',
-                 visualize=True,
-                 seed=1):
+                 visualize=True):
 
         self.width, self.height = field_shape
         self.initial_games = initial_games
         self.test_games = test_games
         self.goal_steps = goal_steps
         self.lr = lr
-        self.seed = seed
         self.visualize = visualize
         self.filename = filename
         self.vectors_and_keys = [
@@ -43,13 +41,17 @@ class PolicyIterationSnake:
 
     def _model_transits_rewards(self):
         for _ in tqdm(range(self.initial_games)):
-            game = SnakeGame()
+            game = SnakeGame(board_width=self.width,
+                             board_height=self.height,
+                             gui=False,
+                             title='Policy Iteration')
+
             _, prev_score, snake, food = game.start()
             prev_observation = self.generate_observation(snake, food)
             prev_food_distance = self.get_food_distance(snake, food)
             for _ in range(self.goal_steps):
                 action, game_action = self.generate_action(snake)
-                done, score, snake, food  = game.step(game_action)
+                done, score, snake, food = game.step(game_action)
                 if done:
                     cur_observation = (-1, 0, 0, 0)
                     self.rewards[(prev_observation, action, cur_observation)] = -100
@@ -200,14 +202,14 @@ class PolicyIterationSnake:
         self.policy[state] = self._get_best_action(state)
         policy_stable[self.state_to_int(state)] = old_policy == self.policy[state]
         for a in (0, 1):
-                for b in (0, 1):
-                    for c in (0, 1):
-                        for d in range(5):
-                            state = (a, b, c, d)
-                            old_policy = self.policy[state]
-                            self.policy[state] = self._get_best_action(state)
-                            policy_stable[self.state_to_int(state)] = old_policy == self.policy[state]
-        
+            for b in (0, 1):
+                for c in (0, 1):
+                    for d in range(5):
+                        state = (a, b, c, d)
+                        old_policy = self.policy[state]
+                        self.policy[state] = self._get_best_action(state)
+                        policy_stable[self.state_to_int(state)] = old_policy == self.policy[state]
+
         return policy_stable
     
     def run(self):
@@ -221,7 +223,6 @@ class PolicyIterationSnake:
             game = SnakeGame(board_width=self.width,
                              board_height=self.height,
                              gui=self.visualize,
-                             seed=self.seed,
                              title='Policy Iteration')
 
             _, _, snake, food = game.start()

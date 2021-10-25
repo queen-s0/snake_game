@@ -34,24 +34,21 @@ def main(args):
         snake = ValueIterationSnake(field_shape=field_shape,
                                     initial_games=train_games,
                                     test_games=test_games,
-                                    visualize=visualize,
-                                    seed=seed)
+                                    visualize=visualize)
         snake.run()
 
     elif algorithm_name == 'policy iteration':
         snake = PolicyIterationSnake(field_shape=field_shape,
                                      initial_games=train_games,
                                      test_games=test_games,
-                                     visualize=visualize,
-                                     seed=seed)
+                                     visualize=visualize)
         snake.run()
 
     elif algorithm_name == 'mlp':
         snake = SnakeNN(field_shape=field_shape,
                         initial_games=train_games,
                         test_games=test_games,
-                        visualize=visualize,
-                        seed=seed)
+                        visualize=visualize)
         snake.train()
         snake.visualise()
 

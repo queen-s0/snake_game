@@ -44,3 +44,11 @@ usage: run.py [-h] [--algo {value iteration,policy iteration,mlp}]
 ```
 python run.py --algo 'mlp' --field-shape 15 15 --train-games 8000 --visualize True --test-games 5
 ```
+
+## Results
+
+### MLP
+
+[comment]: <> (![MLP]&#40;gifs/mlp.gif&#41;)
+
+[<img src="gifs/mlp.gif" width="250"/>](gifs/mlp.gif)
