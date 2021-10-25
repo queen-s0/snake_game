@@ -16,11 +16,11 @@ In order to estimate the perfomance of each algorithm we have conducted an exper
 - ```models/``` — contains algorithms \
     ```├── nn.py``` — MLP approach\
     ```├── policy_iteration.py``` — Policy Iteration algorithm\
-    ```└── value_iteration.py``` — Value Iteration\
+    ```└── value_iteration.py``` — Value Iteration
 - ```src/``` — auxiliary instrumets \
     ```├── render.py``` — Snake Game rendering\
-    ```└── snake_game.py``` — logic of the Snake Game\
-- ```gifs/``` — contains gifs \
+    ```└── snake_game.py``` — logic of the Snake Game
+- ```gifs/``` — contains gifs 
 - ```run.py``` — start experiments
 
 ## Installation
