@@ -8,8 +8,16 @@ We have implemented three algorithms:
 * Simple Multi-Layer perceptron
 
 In order to estimate the perfomance of each algorithm we have conducted an experiments, using the following metrics:
-* **Steps per food**: How many steps it took on average for the snake to eat food;
-* **Average length**: Average length of the snake during the game;
+* **Average number of steps (ANS)**: How many steps does the Snake take on average before the collision;
+* **Average maximal Snake length (AML)**: Average maximal length of the snake during the game;
+
+## Results
+
+**Algorithm** |       **Demo (Not optimal)**             |  **Average number of steps**   |   **Average maximal length**
+:------------------------:|:-------------------------:|:-------------------------:|:--------------------------:|
+**Value Iteration** | ![](gifs/value-iteration.gif)  |  **424** | **22**
+**Policy Iteration** | ![](gifs/policy-iteration.gif)  |  **198** | **23**
+**MLP** | ![](gifs/mlp.gif)  | **123** | **12**
 
 ## Repository structure
 
@@ -45,9 +53,3 @@ usage: run.py [-h] [--algo {value iteration,policy iteration,mlp}]
 ```
 python run.py --algo 'mlp' --field-shape 15 15 --train-games 8000 --visualize True --test-games 5
 ```
-
-## Results
-
-**Value Iteration**             |  **Policy Iteration**   |   **MLP**
-:-------------------------:|:-------------------------:|:--------------------------:|
-![](gifs/value-iteration.gif)  |  ![](gifs/policy-iteration.gif) | ![](gifs/mlp.gif)
